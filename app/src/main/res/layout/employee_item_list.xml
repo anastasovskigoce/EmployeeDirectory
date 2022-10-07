@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/image_size_small"
+        android:layout_height="@dimen/image_size_small"
+        android:layout_marginStart="@dimen/between_screen_border_and_element"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/place_holder_image_homer_simpson" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/between_elements"
+        android:layout_marginTop="@dimen/between_elements"
+        android:layout_marginEnd="@dimen/between_screen_border_and_element"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/photo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/lorem_ipsum_short" />
+
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/between_elements"
+        android:layout_marginEnd="@dimen/between_screen_border_and_element"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/photo"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:text="@string/lorem_ipsum_short" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

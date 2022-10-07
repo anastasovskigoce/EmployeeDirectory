@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="between_elements">8dp</dimen>
+    <dimen name="between_screen_border_and_element">16dp</dimen>
+    <dimen name="image_size_small">48dp</dimen>
+</resources>
