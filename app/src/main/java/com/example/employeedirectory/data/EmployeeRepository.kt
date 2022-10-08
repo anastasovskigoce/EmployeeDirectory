@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
-private const val BASE_URL = "https://s3.amazonaws.com/sq-mobile-interview/"
+private const val BASE_URL = "https://s3.amazonaws.com/sq-mobile-interview/a/"
 
 class EmployeeRepository {
     private val employeeApi: EmployeeApi

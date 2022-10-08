@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/no_employees_or_error_photo"
         android:layout_width="@dimen/image_size_small"
         android:layout_height="@dimen/image_size_small"
         android:layout_marginStart="@dimen/between_screen_border_and_element"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/no_employees_or_error_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/between_elements"
@@ -26,7 +26,7 @@
         android:background="@color/shimmerColor"
         android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/photo"
+        app:layout_constraintStart_toEndOf="@+id/no_employees_or_error_photo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_marginEnd="@dimen/between_screen_border_and_element"
         android:background="@color/shimmerColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/photo"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintStart_toEndOf="@+id/no_employees_or_error_photo"
+        app:layout_constraintTop_toBottomOf="@+id/no_employees_or_error_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

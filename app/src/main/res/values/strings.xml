@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Employee Directory</string>
     <string name="refresh">REFRESH</string>
-    <string name="no_employees">Oh snap, you\'ve got nothing. Time to start hiring!!!</string>
+    <string name="no_employees">Such emptiness! Time to start hiring!</string>
+    <string name="api_error_message">Oh snap, something is wrong. We are working hard on fixing it!</string>
 </resources>

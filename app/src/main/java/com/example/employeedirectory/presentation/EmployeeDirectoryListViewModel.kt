@@ -1,5 +1,6 @@
 package com.example.employeedirectory.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.employeedirectory.data.Employee
@@ -9,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+
+private const val TAG = "PhotoGalleryViewModel"
 
 class EmployeeDirectoryListViewModel : ViewModel() {
     private val employeeRepository = EmployeeRepository()
@@ -27,9 +30,16 @@ class EmployeeDirectoryListViewModel : ViewModel() {
         _uiState.value = Loading
 
         // load them
-        val items = employeeRepository.fetchEmployees().sortedBy { it.fullName }
-        _uiState.value =
-            if (items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
+        try {
+            val items = employeeRepository.fetchEmployees().sortedBy { it.fullName }
+            Log.d(TAG, "Fetched list of employees")
+            _uiState.value =
+                if (items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
+        } catch (ex: Exception) {
+            Log.e(TAG, "Failed to fetch gallery items", ex)
+            _uiState.value = Error
+        }
+
     }
 
     //region Testing
@@ -61,7 +71,7 @@ class EmployeeDirectoryListViewModel : ViewModel() {
 
         val items = employeeRepository.fetchMalformedEmployees().sortedBy { it.fullName }
         _uiState.value = if(items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
-        **/
+         **/
     }
     //endregion
 }
