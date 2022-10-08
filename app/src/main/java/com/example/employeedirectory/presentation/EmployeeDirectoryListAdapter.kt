@@ -15,6 +15,7 @@ class EmployeeDirectoryViewHolder(
         binding.name.text = employee.fullName
         binding.team.text = employee.team
         binding.photo.load(employee.photoUrlSmall) {
+            fallback(R.drawable.place_holder_image_homer_simpson)
             placeholder(R.drawable.place_holder_image_homer_simpson)
         }
     }

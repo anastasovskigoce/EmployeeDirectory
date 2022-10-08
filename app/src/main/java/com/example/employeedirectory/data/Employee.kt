@@ -6,19 +6,19 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Employee(
     @Json(name = "uuid")
-    val id: String,
+    val id: String?,
     @Json(name = "full_name")
-    val fullName: String,
+    val fullName: String?,
     @Json(name = "phone_number")
     val phoneNumber: String?,
     @Json(name = "email_address")
-    val email: String,
+    val email: String?,
     val biography: String?,
     @Json(name = "photo_url_small")
     val photoUrlSmall: String?,
     @Json(name = "photo_url_large")
     val photoUrlLarge: String?,
-    val team: String,
+    val team: String?,
     @Json(name = "employee_type")
     val employeeType: EmployeeEnum
 )
