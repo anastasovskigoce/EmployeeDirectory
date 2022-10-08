@@ -15,8 +15,6 @@ import kotlinx.coroutines.launch
 
 class EmployeeDirectoryListFragment : Fragment() {
 
-    private var refreshMenuItem: MenuItem? = null
-
     private var _binding: EmployeeDirectoryListFragmentBinding? = null
     private val binding
         get() = checkNotNull(_binding) {
@@ -45,15 +43,17 @@ class EmployeeDirectoryListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    when (state) {
-                        is Loading -> showLoading()
-                        is EmployeesFetched -> showEmployees(state)
-                        is Error -> showError()
-                        is NoEmployeesFetched -> showNoEmployeesFound()
-                    }
-                }
+                viewModel.uiState.collect { handleViewStateUpdate(it) }
             }
+        }
+    }
+
+    private fun handleViewStateUpdate(state: EmployeeDirectoryViewState) {
+        when (state) {
+            is Loading -> showLoading()
+            is EmployeesFetched -> showEmployees(state)
+            is Error -> showError()
+            is NoEmployeesFetched -> showNoEmployeesFound()
         }
     }
 
@@ -86,7 +86,7 @@ class EmployeeDirectoryListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_refresh -> {
-                //TODO implement fetch
+                viewLifecycleOwner.lifecycleScope.launch { viewModel.fetchEmployees() }
                 true
             }
             else -> super.onOptionsItemSelected(item)
