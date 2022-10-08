@@ -25,9 +25,17 @@ class EmployeeRepository {
 
     suspend fun fetchEmployees(): List<Employee> = employeeApi.fetchEmployees().employees
 
-    //ONly used for testing
+    //region Testing
+    /**
+     * DO NOT USE -- only used for testing purposes
+     * DISCLAIMER -- I would not leave code like this in a real app and in prod. This is just for ease of testing
+     */
     suspend fun fetchMalformedEmployees(): List<Employee> = employeeApi.fetchMalformedEmployees().employees
 
-    //Only used for testing
+     /**
+     * DO NOT USE -- only used for testing purposes
+     * DISCLAIMER -- I would not leave code like this in a real app and in prod. This is just for ease of testing
+     */
     suspend fun fetchEmptyEmployees(): List<Employee> = employeeApi.fetchEmptyEmployees().employees
+    //endregion
 }

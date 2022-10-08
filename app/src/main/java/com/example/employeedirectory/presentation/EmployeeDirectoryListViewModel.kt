@@ -47,6 +47,22 @@ class EmployeeDirectoryListViewModel : ViewModel() {
         _uiState.value = if(items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
          **/
     }
+
+    /**
+     * DO NOT USE -- only used for testing purposes
+     * DISCLAIMER -- I would not leave code like this in a real app and in prod. This is just for ease of testing
+     */
+    private suspend fun fetchMalformedEmployees() {
+        TODO("Function only used for testing purposes")
+
+        /**
+        // show that we are getting the employees
+        _uiState.value = Loading
+
+        val items = employeeRepository.fetchMalformedEmployees().sortedBy { it.fullName }
+        _uiState.value = if(items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
+        **/
+    }
     //endregion
 }
 
