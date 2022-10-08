@@ -2,7 +2,6 @@ package com.example.employeedirectory.presentation
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.employeedirectory.databinding.EmployeeDirectoryListFragmentBinding
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.employeedirectory.R
+import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
 import kotlinx.coroutines.launch
 
 class EmployeeDirectoryListFragment : Fragment() {
@@ -46,12 +46,32 @@ class EmployeeDirectoryListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
-                    binding.employeeDirRecyclerView.adapter =
-                        EmployeeDirectoryListAdapter(state.employees)
+                    when (state) {
+                        is Loading -> showLoading()
+                        is EmployeesFetched -> showEmployees(state)
+                        is Error -> showError()
+                        is NoEmployeesFetched -> showNoEmployeesFound()
+                    }
                 }
             }
         }
     }
+
+    private fun showEmployees(state: EmployeesFetched) {
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.employeeDirRecyclerView.visibility = View.VISIBLE
+        binding.employeeDirRecyclerView.adapter = EmployeeDirectoryListAdapter(state.employees)
+    }
+
+    private fun showLoading() {
+        binding.employeeDirRecyclerView.visibility = View.GONE
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.shimmerLayout.startShimmer()
+    }
+
+    private fun showError() {}
+    private fun showNoEmployeesFound() {}
 
     override fun onDestroyView() {
         super.onDestroyView()
