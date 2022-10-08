@@ -28,8 +28,26 @@ class EmployeeDirectoryListViewModel : ViewModel() {
 
         // load them
         val items = employeeRepository.fetchEmployees().sortedBy { it.fullName }
-        _uiState.value = EmployeesFetched(items)
+        _uiState.value =
+            if (items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
     }
+
+    //region Testing
+    /**
+     * DO NOT USE -- only used for testing purposes
+     * DISCLAIMER -- I would not leave code like this in a real app and in prod. This is just for ease of testing
+     */
+    private suspend fun fetchNoEmployees() {
+        TODO("Function only used for testing purposes")
+        /**
+        // show that we are getting the employees
+        _uiState.value = Loading
+
+        val items = employeeRepository.fetchEmptyEmployees().sortedBy { it.fullName }
+        _uiState.value = if(items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
+         **/
+    }
+    //endregion
 }
 
 sealed class EmployeeDirectoryViewState {
@@ -51,5 +69,5 @@ sealed class EmployeeDirectoryViewState {
     /**
      * No employees fetched
      */
-    object NoEmployeesFetched : EmployeeDirectoryViewState()
+    object EmptyListOfEmployeesFetched : EmployeeDirectoryViewState()
 }
