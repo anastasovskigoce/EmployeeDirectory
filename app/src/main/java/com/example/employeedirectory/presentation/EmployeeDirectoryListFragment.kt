@@ -48,30 +48,46 @@ class EmployeeDirectoryListFragment : Fragment() {
         }
     }
 
+    //region ViewState handlers
     private fun handleViewStateUpdate(state: EmployeeDirectoryViewState) {
         when (state) {
             is Loading -> showLoading()
             is EmployeesFetched -> showEmployees(state)
             is Error -> showError()
-            is NoEmployeesFetched -> showNoEmployeesFound()
+            is EmptyListOfEmployeesFetched -> showNoEmployeesFound()
         }
     }
 
     private fun showEmployees(state: EmployeesFetched) {
         binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
+
+        binding.noEmployeesFetchedGroup.visibility = View.GONE
+
         binding.employeeDirRecyclerView.visibility = View.VISIBLE
         binding.employeeDirRecyclerView.adapter = EmployeeDirectoryListAdapter(state.employees)
     }
 
     private fun showLoading() {
         binding.employeeDirRecyclerView.visibility = View.GONE
+
+        binding.noEmployeesFetchedGroup.visibility = View.GONE
+
         binding.shimmerLayout.visibility = View.VISIBLE
         binding.shimmerLayout.startShimmer()
     }
 
     private fun showError() {}
-    private fun showNoEmployeesFound() {}
+
+    private fun showNoEmployeesFound() {
+        binding.employeeDirRecyclerView.visibility = View.GONE
+
+        binding.shimmerLayout.visibility = View.GONE
+
+        binding.noEmployeesFetchedGroup.visibility = View.VISIBLE
+    }
+
+    //endregion
 
     override fun onDestroyView() {
         super.onDestroyView()
