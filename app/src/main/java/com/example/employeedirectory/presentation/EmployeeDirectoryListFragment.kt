@@ -62,7 +62,7 @@ class EmployeeDirectoryListFragment : Fragment() {
         binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
 
-        binding.noEmployeesFetchedGroup.visibility = View.GONE
+        binding.noEmployeesFetchedOrApiErrorGroup.visibility = View.GONE
 
         binding.employeeDirRecyclerView.visibility = View.VISIBLE
         binding.employeeDirRecyclerView.adapter = EmployeeDirectoryListAdapter(state.employees)
@@ -71,20 +71,30 @@ class EmployeeDirectoryListFragment : Fragment() {
     private fun showLoading() {
         binding.employeeDirRecyclerView.visibility = View.GONE
 
-        binding.noEmployeesFetchedGroup.visibility = View.GONE
+        binding.noEmployeesFetchedOrApiErrorGroup.visibility = View.GONE
 
         binding.shimmerLayout.visibility = View.VISIBLE
         binding.shimmerLayout.startShimmer()
     }
 
-    private fun showError() {}
+    private fun showError() {
+        binding.employeeDirRecyclerView.visibility = View.GONE
+
+        binding.shimmerLayout.visibility = View.GONE
+
+        binding.errorImage.setImageResource(R.drawable.error_image_homer_simpson)
+        binding.errorText.text = getText(R.string.api_error_message)
+        binding.noEmployeesFetchedOrApiErrorGroup.visibility = View.VISIBLE
+    }
 
     private fun showNoEmployeesFound() {
         binding.employeeDirRecyclerView.visibility = View.GONE
 
         binding.shimmerLayout.visibility = View.GONE
 
-        binding.noEmployeesFetchedGroup.visibility = View.VISIBLE
+        binding.errorImage.setImageResource(R.drawable.place_holder_image_homer_simpson)
+        binding.errorText.text = getText(R.string.no_employees)
+        binding.noEmployeesFetchedOrApiErrorGroup.visibility = View.VISIBLE
     }
 
     //endregion
