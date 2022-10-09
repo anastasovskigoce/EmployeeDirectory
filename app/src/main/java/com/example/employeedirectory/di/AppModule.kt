@@ -2,13 +2,22 @@ package com.example.employeedirectory.di
 
 import com.example.employeedirectory.BuildConfig
 import com.example.employeedirectory.EmployeeApi
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import javax.inject.Singleton
 
-class NetworkDependencyInjectorImpl : NetworkDependencyInjector {
-    override fun provideAPI(): EmployeeApi {
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideEmployee(): EmployeeApi {
         val okHttpClient = OkHttpClient.Builder()
             .build()
 
@@ -17,6 +26,6 @@ class NetworkDependencyInjectorImpl : NetworkDependencyInjector {
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
-        return retrofit.create()
+        return retrofit.create(EmployeeApi::class.java)
     }
 }

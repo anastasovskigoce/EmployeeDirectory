@@ -1,17 +1,13 @@
 package com.example.employeedirectory.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.employeedirectory.AppDispatchers
-import com.example.employeedirectory.EmployeeApi
 import com.example.employeedirectory.MainCoroutineRule
 import com.example.employeedirectory.data.Employee
 import com.example.employeedirectory.data.EmployeeEnum
 import com.example.employeedirectory.data.contract.EmployeeRemoteStore
-import com.example.employeedirectory.di.NetworkDependencyInjector
 import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.*
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,18 +25,11 @@ class EmployeeDirectoryListViewModelTests {
 
     private lateinit var subjectUnderTest: EmployeeDirectoryListViewModel
 
-    private val api = mock(EmployeeApi::class.java)
     private val repo = mock(EmployeeRemoteStore::class.java)
-
-    private val testDispatcher = AppDispatchers(
-        IO = TestCoroutineDispatcher()
-    )
 
     @Before
     fun setup() {
-        val di = mock(NetworkDependencyInjector::class.java)
-        whenever(di.provideAPI()).thenReturn(api)
-        subjectUnderTest = EmployeeDirectoryListViewModel(repo, testDispatcher)
+        subjectUnderTest = EmployeeDirectoryListViewModel(repo)
     }
 
     @Test

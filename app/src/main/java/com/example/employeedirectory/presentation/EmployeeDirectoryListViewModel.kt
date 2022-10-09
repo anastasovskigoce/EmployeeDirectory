@@ -2,23 +2,19 @@ package com.example.employeedirectory.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.employeedirectory.AppDispatchers
 import com.example.employeedirectory.data.Employee
-import com.example.employeedirectory.data.EmployeeRepository
 import com.example.employeedirectory.data.contract.EmployeeRemoteStore
-import com.example.employeedirectory.di.NetworkDependencyInjectorImpl
 import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class EmployeeDirectoryListViewModel(
-    private val employeeRepository: EmployeeRemoteStore = EmployeeRepository(
-        NetworkDependencyInjectorImpl().provideAPI()
-    ),
-    private val appDispatchers: AppDispatchers = AppDispatchers()
+@HiltViewModel
+class EmployeeDirectoryListViewModel @Inject constructor(
+    private val employeeRepository: EmployeeRemoteStore
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<EmployeeDirectoryViewState> =
@@ -36,9 +32,7 @@ class EmployeeDirectoryListViewModel(
 
         // load them
         try {
-            val items = withContext(appDispatchers.IO) {
-                employeeRepository.fetchEmployees().sortedBy { it.fullName }
-            }
+            val items = employeeRepository.fetchEmployees().sortedBy { it.fullName }
             _uiState.value =
                 if (items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
         } catch (ex: Exception) {
