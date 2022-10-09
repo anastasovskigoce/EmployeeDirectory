@@ -11,8 +11,10 @@ import com.example.employeedirectory.databinding.EmployeeDirectoryListFragmentBi
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.employeedirectory.R
 import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class EmployeeDirectoryListFragment : Fragment() {
 
     private var _binding: EmployeeDirectoryListFragmentBinding? = null

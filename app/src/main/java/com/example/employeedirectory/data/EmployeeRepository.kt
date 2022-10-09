@@ -2,8 +2,9 @@ package com.example.employeedirectory.data
 
 import com.example.employeedirectory.EmployeeApi
 import com.example.employeedirectory.data.contract.EmployeeRemoteStore
+import javax.inject.Inject
 
-class EmployeeRepository(
+class EmployeeRepository @Inject constructor(
     private val employeeApi: EmployeeApi
 ) : EmployeeRemoteStore {
     override suspend fun fetchEmployees(): List<Employee> = employeeApi.fetchEmployees().employees
