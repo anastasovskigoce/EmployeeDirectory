@@ -1,20 +1,25 @@
 package com.example.employeedirectory.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.employeedirectory.AppDispatchers
 import com.example.employeedirectory.data.Employee
 import com.example.employeedirectory.data.EmployeeRepository
+import com.example.employeedirectory.data.contract.EmployeeRemoteStore
+import com.example.employeedirectory.di.NetworkDependencyInjectorImpl
 import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-private const val TAG = "PhotoGalleryViewModel"
-
-class EmployeeDirectoryListViewModel : ViewModel() {
-    private val employeeRepository = EmployeeRepository()
+class EmployeeDirectoryListViewModel(
+    private val employeeRepository: EmployeeRemoteStore = EmployeeRepository(
+        NetworkDependencyInjectorImpl().provideAPI()
+    ),
+    private val appDispatchers: AppDispatchers = AppDispatchers()
+) : ViewModel() {
 
     private val _uiState: MutableStateFlow<EmployeeDirectoryViewState> =
         MutableStateFlow(Loading)
@@ -31,15 +36,14 @@ class EmployeeDirectoryListViewModel : ViewModel() {
 
         // load them
         try {
-            val items = employeeRepository.fetchEmployees().sortedBy { it.fullName }
-            Log.d(TAG, "Fetched list of employees")
+            val items = withContext(appDispatchers.IO) {
+                employeeRepository.fetchEmployees().sortedBy { it.fullName }
+            }
             _uiState.value =
                 if (items.isEmpty()) EmptyListOfEmployeesFetched else EmployeesFetched(items)
         } catch (ex: Exception) {
-            Log.e(TAG, "Failed to fetch gallery items", ex)
             _uiState.value = Error
         }
-
     }
 
     //region Testing
