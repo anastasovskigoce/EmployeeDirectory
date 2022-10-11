@@ -11,6 +11,12 @@ I wanted to set strong foundations for scaling and unit testing, thus I used Hil
 
 Finally, the requirements asked for a loading screen and handling various error states (no employees, malformed response, HTTP 404). I used the [Facebook's shimmer library](https://facebook.github.io/shimmer-android/) to handle the loading states. The images were cached on disk using [Instacart's Coil image library](https://www.instacart.com/company/how-its-made/introducing-coil-kotlin-first-image-loading-on-android/). A picture of Homer Simpson was used as a placeholder image and Homer Simpson is used as a mascot of the app. See images below for a preview oh how the app looks in each state.
 
+<img src="https://github.com/anastasovskigoce/EmployeeDirectory/blob/main/Loading.png" width="200">
+<img src="https://github.com/anastasovskigoce/EmployeeDirectory/blob/main/Normal%20State.png" width="200">
+<img src="https://github.com/anastasovskigoce/EmployeeDirectory/blob/main/Empty.png" width="200">
+<img src="https://github.com/anastasovskigoce/EmployeeDirectory/blob/main/Error.png" width="200">
+<img src="https://github.com/anastasovskigoce/EmployeeDirectory/blob/main/Placeholder%20Image.png" width="200">
+
 ## What was the reason for your focus? What problems were you trying to solve?
 One of the reasons why I love working with the Android system is the fact that the Android system never stopped evolving. It is true that at times it feels like you have to run in order to stay in one place, but the constantly changing Android framework and how we write apps is what keeps the Android getting better. I focused on Hilt, Coroutines and Architecture because my goal was to create an efficient app that can be easily tested and scaled as the number of features and developers grow.
 
