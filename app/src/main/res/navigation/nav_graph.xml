@@ -9,5 +9,35 @@
         android:id="@+id/employeeDirectoryListFragment"
         tools:layout="@layout/employee_directory_list_fragment"
         android:name="com.example.employeedirectory.presentation.EmployeeDirectoryListFragment"
-        android:label="EmployeeDirectoryListFragment" />
+        android:label="EmployeeDirectoryListFragment" >
+<!--        <action-->
+<!--            android:id="@+id/showEmployeeDetail"-->
+<!--            app:destination="@id/employeeDetailFragment" />-->
+        <action
+            android:id="@+id/showEmployeeDialog"
+            app:destination="@id/employeeDetailDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDetailFragment"
+        android:name="com.example.employeedirectory.presentation.detail.EmployeeDetailFragment"
+        android:label="fragment_employee_detail"
+        tools:layout="@layout/fragment_employee_detail" >
+        <argument
+            android:name="employeeID"
+            app:argType="string" />
+    </fragment>
+    <dialog
+        android:id="@+id/employeeDetailDialog"
+        android:name="com.example.employeedirectory.presentation.dialog.EmployeeDetailDialog"
+        android:label="EmployeeDetailDialog" >
+        <argument
+            android:name="imageSrc"
+            app:argType="string" />
+        <argument
+            android:name="bio"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </dialog>
 </navigation>

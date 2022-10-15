@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+    <string name="homer_simpson_name">Homer Simpson</string>
     <!-- Dummy Text Lorem Ipsum -->
     <string name="lorem_ipsum_short" translatable="false">Lorem ipsum</string>
     <string name="lorem_ipsum_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum convallis gravida egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse et convallis diam.</string>
