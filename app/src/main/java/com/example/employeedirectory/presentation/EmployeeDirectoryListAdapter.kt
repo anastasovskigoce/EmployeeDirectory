@@ -12,7 +12,7 @@ import com.example.employeedirectory.databinding.EmployeeItemListBinding
 class EmployeeDirectoryViewHolder(
     private val binding: EmployeeItemListBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(employee: Employee, onEmployeeClicked: (employeeID: String) -> Unit) {
+    fun bind(employee: Employee, onEmployeeClicked: (largePhotoUrl: String, bio: String, name: String) -> Unit) {
         binding.name.text = employee.fullName
         binding.team.text = employee.team
         binding.photo.load(employee.photoUrlSmall) {
@@ -22,8 +22,8 @@ class EmployeeDirectoryViewHolder(
 
         binding.root.setOnClickListener {
             //TODO do this better
-            if (employee.id != null){
-                onEmployeeClicked(employee.id)
+            if (employee.photoUrlLarge != null && employee.biography != null && employee.fullName != null){
+                onEmployeeClicked(employee.photoUrlLarge, employee.biography, employee.fullName)
             }
         }
     }
@@ -31,7 +31,7 @@ class EmployeeDirectoryViewHolder(
 
 class EmployeeDirectoryListAdapter(
     private val employees: List<Employee>,
-    private val onEmployeeClicked: (employeeId: String) -> Unit
+    private val onEmployeeClicked: (largePhotoUrl: String, bio: String, name: String) -> Unit
 ) : RecyclerView.Adapter<EmployeeDirectoryViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeDirectoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)

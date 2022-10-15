@@ -69,10 +69,12 @@ class EmployeeDirectoryListFragment : Fragment() {
 
         binding.employeeDirRecyclerView.visibility = View.VISIBLE
         binding.employeeDirRecyclerView.adapter =
-            EmployeeDirectoryListAdapter(state.employees) { employeeId ->
+            EmployeeDirectoryListAdapter(state.employees) { url, bio, name ->
                 findNavController().navigate(
-                    EmployeeDirectoryListFragmentDirections.showEmployeeDetail(
-                        employeeId
+                    EmployeeDirectoryListFragmentDirections.showEmployeeDialog(
+                        url,
+                        bio,
+                        name
                     )
                 )
             }
