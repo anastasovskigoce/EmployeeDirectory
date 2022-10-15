@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.employeedirectory.databinding.EmployeeDirectoryListFragmentBinding
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.employeedirectory.R
 import com.example.employeedirectory.presentation.EmployeeDirectoryViewState.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +68,14 @@ class EmployeeDirectoryListFragment : Fragment() {
         binding.noEmployeesFetchedOrApiErrorGroup.visibility = View.GONE
 
         binding.employeeDirRecyclerView.visibility = View.VISIBLE
-        binding.employeeDirRecyclerView.adapter = EmployeeDirectoryListAdapter(state.employees)
+        binding.employeeDirRecyclerView.adapter =
+            EmployeeDirectoryListAdapter(state.employees) { employeeId ->
+                findNavController().navigate(
+                    EmployeeDirectoryListFragmentDirections.showEmployeeDetail(
+                        employeeId
+                    )
+                )
+            }
     }
 
     private fun showLoading() {
