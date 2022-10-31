@@ -2,12 +2,33 @@ package com.example.employeedirectory.data
 
 import com.example.employeedirectory.EmployeeApi
 import com.example.employeedirectory.data.contract.EmployeeRemoteStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EmployeeRepository @Inject constructor(
-    private val employeeApi: EmployeeApi
+    private val employeeApi: EmployeeApi,
+    private val employeeDao: EmployeeDao
+//    private val coroutineScope: CoroutineScope = GlobalScope
 ) : EmployeeRemoteStore {
-    override suspend fun fetchEmployees(): List<Employee> = employeeApi.fetchEmployees().employees
+
+    // this would fetch either from DB or network
+    override suspend fun fetchEmployees(): List<Employee> {
+        // get the employees over the network
+        val employeesFetched = employeeApi.fetchEmployees().employees
+        // cache the response in the DB
+        employeeDao.insertAll(employeesFetched.map { EmployeeEntity.convert(it) })
+        return employeesFetched
+    }
+
+    suspend fun getEmployee(id: String): EmployeeEntity = employeeDao.getEmployee(id)
+
+//    fun updateCrime(empl: EmployeeEntity) {
+//        coroutineScope.launch {
+//            employeeDao.updateEmployee(empl)
+//        }
+//    }
 
     //region Testing
     /**
