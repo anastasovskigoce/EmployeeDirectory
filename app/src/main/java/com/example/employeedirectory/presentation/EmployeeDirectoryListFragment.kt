@@ -71,9 +71,9 @@ class EmployeeDirectoryListFragment : Fragment() {
         binding.employeeDirRecyclerView.adapter = EmployeeDirectoryListAdapter(state.employees) {
             findNavController().navigate(
                 EmployeeDirectoryListFragmentDirections.goToDetailScreen(
-                    it.fullName,
-                    it.biography,
-                    it.photoUrlLarge
+                    if(it.fullName != null) it.fullName else "error name",
+                    if(it.biography != null) it.biography else "error name",
+                    if(it.photoUrlLarge != null) it.photoUrlLarge else ""
                 )
             )
         }
