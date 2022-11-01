@@ -74,6 +74,13 @@ class EmployeeDirectoryListViewModel @Inject constructor(
     //endregion
 }
 
+
+/**
+ * Interview 2
+ * Task 1 - show a details screen - going to use a fragment
+ * Task 2 - show large picture, name, bio
+ */
+
 sealed class EmployeeDirectoryViewState {
     /**
      * The loading state, waiting on a response

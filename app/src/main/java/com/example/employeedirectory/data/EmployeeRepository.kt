@@ -5,9 +5,25 @@ import com.example.employeedirectory.data.contract.EmployeeRemoteStore
 import javax.inject.Inject
 
 class EmployeeRepository @Inject constructor(
-    private val employeeApi: EmployeeApi
+    private val employeeApi: EmployeeApi,
+    private val employeeDao: EmployeeDao
 ) : EmployeeRemoteStore {
-    override suspend fun fetchEmployees(): List<Employee> = employeeApi.fetchEmployees().employees
+    override suspend fun fetchEmployees(): List<Employee> {
+        // Task 2 clear db when schema changes
+
+
+        // Task 1 if the db is empty pull from network, else use DB
+        val localEmployeeList = employeeDao.getEmployee()
+        if (localEmployeeList.isEmpty()){
+            // get from remote source
+            val employees = employeeApi.fetchEmployees().employees
+            employeeDao.insertAllEmployees(employees.map { EmployeeEnt.convertFromNetwork(it) })
+            return employees
+        }
+        else{
+            return localEmployeeList.map { Employee.convertFromDB(it) }
+        }
+    }
 
     //region Testing
     /**
